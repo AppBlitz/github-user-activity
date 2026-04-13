@@ -3,4 +3,14 @@ name = "github-user-activity"
 version = "0.1.0"
 edition = "2024"
 
+[lib]
+name = "commands"
+path = "src/lib.rs"
+
 [dependencies]
+clap = { version = "4.6.0", features = ["derive"] }
+serde_json = "1.0.149"
+serde = { version = "1.0", features = ["derive"] }
+reqwest = { version = "0.13.2", features = ["json"] }
+futures = "0.3"
+tokio = { version = "1.51.1", features = ["full"] }
