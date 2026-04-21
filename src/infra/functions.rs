@@ -1,4 +1,8 @@
-use genpdf::elements;
+use genpdf::{
+    Document,
+    elements::{Paragraph, TableLayout},
+    fonts, style,
+};
 
 use crate::model::{format_output::FormatEvents, github_events::Events};
 
@@ -32,23 +36,24 @@ pub fn generate_pdf(names_repository: Vec<String>, events: &Vec<Events>) {
         .expect("Failed write content pdf ")
 }
 
-fn create_document() -> genpdf::Document {
-    let font_family = genpdf::fonts::from_files("./fonts/", "LiberationSans", None).unwrap();
-    let mut doc: genpdf::Document = genpdf::Document::new(font_family);
+fn create_document() -> Document {
+    let font_family = fonts::from_files("./fonts/", "LiberationSans", None).unwrap();
+    let mut doc: Document = Document::new(font_family);
     doc.set_title("github activity");
     doc
 }
-fn create_table(
-    names_repository: Vec<String>,
-    events: &Vec<Events>,
-) -> genpdf::elements::TableLayout {
-    let mut table = genpdf::elements::TableLayout::new(vec![1, 1]);
+fn create_table(names_repository: Vec<String>, events: &Vec<Events>) -> TableLayout {
+    let mut table = TableLayout::new(vec![1, 1]);
     let format_events: Vec<FormatEvents> = run_array(names_repository, events);
     for element in format_events {
         let mut row = table.row();
-        row.push_element(elements::Paragraph::new(element.name));
-        row.push_element(elements::Paragraph::new(element.amount_push.to_string()));
+        row.push_element(create_paragraph(element.name));
+        row.push_element(create_paragraph(element.amount_push.to_string()));
         row.push().expect("Invalid elements");
     }
     table
+}
+
+fn create_paragraph(name: String) -> Paragraph {
+    Paragraph::default().styled_string(name, style::Color::Rgb(0, 0, 0))
 }
