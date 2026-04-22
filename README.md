@@ -22,13 +22,14 @@ cargo build --release
 
 ## flags
 
-|    Short   |  full
+--------------------------------------------------------------|
+|    Short   |  full                   |                      |
 |------------|-------------------------|----------------------|
-|     -n     | --name-repository       | name of repository to see
+|     -n     | --name-repository       | name of repository to|
+| ---------- |-------------------------|----------------------|
+|     -u     | --user-name-github      | name profile of githu|
 |------------|-------------------------|----------------------|
-|     -u     | --user-name-github        name profile of github
-|------------|-------------------------|----------------------|
-|     -c     | --creation-pdf                        
+|     -c     | --creation-pdf          |                      |
 |------------|-------------------------|----------------------|
 
 
