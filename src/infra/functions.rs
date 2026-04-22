@@ -1,7 +1,6 @@
 use genpdf::{
-    Document,
     elements::{Paragraph, TableLayout},
-    fonts, style,
+    fonts, style, Document,
 };
 
 use crate::model::{format_output::FormatEvents, github_events::Events};
