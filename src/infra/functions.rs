@@ -1,6 +1,8 @@
+use ::std::result::Result;
 use genpdf::{
-    elements::{Paragraph, TableLayout},
-    fonts, style, Document,
+    Document,
+    elements::{FrameCellDecorator, Paragraph, TableLayout},
+    fonts, style,
 };
 
 use crate::model::{format_output::FormatEvents, github_events::Events};
@@ -15,24 +17,16 @@ pub fn count_push(name_repository: &String, events: &Vec<Events>) -> i64 {
     }
     count_pus
 }
-pub fn run_array(name_repository: Vec<String>, events: &Vec<Events>) -> Vec<FormatEvents> {
+pub fn run_array(name_repository: &Vec<String>, events: &Vec<Events>) -> Vec<FormatEvents> {
     let mut events_format: Vec<FormatEvents> = Vec::new();
     for names in name_repository {
         let structure_repository = FormatEvents {
-            amount_push: count_push(&names, events),
-            name: names,
+            amount_push: count_push(names, events),
+            name_repository: names.to_string(),
         };
         events_format.push(structure_repository);
     }
     events_format
-}
-pub fn generate_pdf(names_repository: Vec<String>, events: &Vec<Events>) {
-    let mut document = create_document();
-    let table = create_table(names_repository, events);
-    document.push(table);
-    document
-        .render_to_file("github_activity.pdf")
-        .expect("Failed write content pdf ")
 }
 
 fn create_document() -> Document {
@@ -41,12 +35,13 @@ fn create_document() -> Document {
     doc.set_title("github activity");
     doc
 }
-fn create_table(names_repository: Vec<String>, events: &Vec<Events>) -> TableLayout {
+fn create_table(names_repository: &Vec<String>, events: &Vec<Events>) -> TableLayout {
     let mut table = TableLayout::new(vec![1, 1]);
+    table.set_cell_decorator(FrameCellDecorator::new(true, true, false));
     let format_events: Vec<FormatEvents> = run_array(names_repository, events);
     for element in format_events {
         let mut row = table.row();
-        row.push_element(create_paragraph(element.name));
+        row.push_element(create_paragraph(element.name_repository));
         row.push_element(create_paragraph(element.amount_push.to_string()));
         row.push().expect("Invalid elements");
     }
@@ -55,4 +50,21 @@ fn create_table(names_repository: Vec<String>, events: &Vec<Events>) -> TableLay
 
 fn create_paragraph(name: String) -> Paragraph {
     Paragraph::default().styled_string(name, style::Color::Rgb(0, 0, 0))
+}
+pub fn generate_pdf(
+    names_repository: &Vec<String>,
+    events: &Vec<Events>,
+) -> Result<&'static str, Box<dyn std::error::Error>> {
+    let mut document = create_document();
+    let table = create_table(names_repository, events);
+    document.push(table);
+    document.render_to_file("github_activity.pdf")?;
+    Ok("Pdf created succeed")
+}
+
+pub fn response_pdf(name_repository: &Vec<String>, events: &Vec<Events>) {
+    match generate_pdf(name_repository, events) {
+        Ok(value) => println!("{value:?}"),
+        Err(er) => eprintln!("{er:?}"),
+    }
 }

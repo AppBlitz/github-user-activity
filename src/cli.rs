@@ -8,7 +8,7 @@ pub struct CommandUsername {
     #[arg(short, long)]
     pub user_name_github: String,
 
-    // OPtion to create pdf
+    // Option to create pdf
     #[arg(short, long, required = false)]
     pub creation_pdf: bool,
 
