@@ -6,6 +6,10 @@
 
 ```bash
 git clone https://github.com/AppBlitz/github-user-activity.git
+```
+
+## Navigation directory
+```bash
 cd github-user-activity
 ```
 
