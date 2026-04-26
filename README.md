@@ -18,7 +18,7 @@ cargo build --release
 ### Run executable
 
 ```bash
-./target/release/github-user-activity
+./target/release/github-user-activity -n <username_github>
 ```
 
 ---
