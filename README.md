@@ -49,12 +49,12 @@ cargo build --release
 
 ##### creation pdf
 
-1. Option 1
+1. **Option 1**
 ```bash
 ./target/release/github-user-activity --creation-pdf --user-name-github <username_github>
 ```
 
-2. Option 2
+2. **Option 2**
 ```bash
 ./target/release/github-user-activity --creation-pdf --name-repository <name_perfil_github>/<name_repository>  --user-name-github <username_github>
 ```
@@ -64,17 +64,17 @@ cargo build --release
 ##### name repository
 
 ```bash
-./target/release/github-user-activity -n <name_perfil_github>/<name_repositoryy> -u <username_github>
+./target/release/github-user-activity -n <name_perfil_github>/<name_repository> -u <username_github>
 ```
 
 ##### creation pdf
 
-1. Option 1
+1. **Option 1**
 ```bash
 ./target/release/github-user-activity -c -u <username_github>
 ```
 
-2. Option 2
+2. **Option 2**
 ```bash
 ./target/release/github-user-activity -c -n <name_perfil_github>/<name_repository>  -u <username_github>
 ```
