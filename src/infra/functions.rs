@@ -1,17 +1,17 @@
-use ::std::result::Result;
 use genpdf::{
     Document,
     elements::{FrameCellDecorator, Paragraph, TableLayout},
     fonts, style,
 };
+use std::result::Result;
 
 use crate::model::{format_output::FormatEvents, github_events::Events};
 
 pub fn count_push(name_repository: &String, events: &Vec<Events>) -> i64 {
     let mut count_pus: i64 = 0;
-    let name_repo: String = format!("{}/{}", events[0].actor.login, name_repository);
+    // let name_repo: String = format!("{}/{}", events[0].actor.login, name_repository);
     for elements in events {
-        if elements.repo.name == name_repo {
+        if elements.repo.name == name_repository.to_string() {
             count_pus += 1;
         }
     }
@@ -67,4 +67,12 @@ pub fn response_pdf(name_repository: &Vec<String>, events: &Vec<Events>) {
         Ok(value) => println!("{value:?}"),
         Err(er) => eprintln!("{er:?}"),
     }
+}
+pub fn list_repository(events: &Vec<Events>) -> std::collections::HashMap<&String, i64> {
+    let mut hasmap_user: std::collections::HashMap<&String, i64> = std::collections::HashMap::new();
+
+    for event in events {
+        hasmap_user.insert(&event.repo.name, count_push(&event.repo.name, events));
+    }
+    hasmap_user
 }
