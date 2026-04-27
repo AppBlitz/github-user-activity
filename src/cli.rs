@@ -13,6 +13,6 @@ pub struct CommandUsername {
     pub creation_pdf: bool,
 
     // name fo repository for verification
-    #[arg(short, long,num_args=1..)]
+    #[arg(short,long,num_args=1..)]
     pub name_repository: Vec<String>,
 }

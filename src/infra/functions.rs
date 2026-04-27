@@ -70,7 +70,6 @@ pub fn response_pdf(name_repository: &Vec<String>, events: &Vec<Events>) {
 }
 pub fn list_repository(events: &Vec<Events>) -> std::collections::HashMap<&String, i64> {
     let mut hasmap_user: std::collections::HashMap<&String, i64> = std::collections::HashMap::new();
-
     for event in events {
         hasmap_user.insert(&event.repo.name, count_push(&event.repo.name, events));
     }
