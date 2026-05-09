@@ -2,7 +2,6 @@ use crate::model::{format_output::FormatEvents, github_events::Events};
 
 pub fn count_push(name_repository: &String, events: &Vec<Events>) -> i64 {
     let mut count_pus: i64 = 0;
-    // let name_repo: String = format!("{}/{}", events[0].actor.login, name_repository);
     for elements in events {
         if elements.repo.name == name_repository.to_string() {
             count_pus += 1;
