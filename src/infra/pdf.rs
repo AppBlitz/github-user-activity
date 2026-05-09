@@ -1,14 +1,14 @@
+use crate::{
+    infra::functions::{count_push, run_array},
+    model::{format_output::FormatEvents, github_events::Events},
+};
 use genpdf::{
     Document, Element, SimplePageDecorator,
     elements::{self, FrameCellDecorator, LinearLayout, Paragraph, TableLayout},
     fonts, style,
 };
-use std::result::Result;
+use std::{error, result};
 
-use crate::{
-    infra::functions::{count_push, run_array},
-    model::{format_output::FormatEvents, github_events::Events},
-};
 fn decorator_pdf(file_decorator: &mut Document) {
     let mut decorator = SimplePageDecorator::new();
     decorator.set_margins(10);
@@ -25,11 +25,11 @@ fn decorator_pdf(file_decorator: &mut Document) {
     file_decorator.set_page_decorator(decorator);
 }
 
-fn create_document() -> Document {
-    let font_family = fonts::from_files("./fonts/", "LiberationSans", None).unwrap();
+pub fn create_document() -> result::Result<Document, Box<dyn error::Error>> {
+    let font_family = fonts::from_files("./fonts/", "LiberationSans", None)?;
     let mut doc: Document = Document::new(font_family);
     doc.set_title("github activity");
-    doc
+    Ok(doc)
 }
 fn create_table(names_repository: &Vec<String>, events: &Vec<Events>) -> TableLayout {
     let mut table = TableLayout::new(vec![1, 1]);
@@ -51,7 +51,7 @@ pub fn generate_pdf(
     names_repository: &Vec<String>,
     events: &Vec<Events>,
 ) -> Result<&'static str, Box<dyn std::error::Error>> {
-    let mut document = create_document();
+    let mut document = create_document()?;
     let table = create_table(names_repository, events);
     document.push(table);
     decorator_pdf(&mut document);
