@@ -16,9 +16,9 @@ fn main() {
     let client: blocking::Client = reqwest::blocking::Client::new();
     match get_data(&client, args.user_name_github.clone()) {
         Ok(value) => {
-            if args.creation_pdf != false && args.name_repository.len() > 0 {
+            if args.creation_pdf && args.name_repository.len() > 0 {
                 response_pdf(&args.name_repository, &value);
-            } else if args.name_repository.len() == 0 && args.creation_pdf != false {
+            } else if args.name_repository.len() == 0 && args.creation_pdf {
                 response_vec_string(&client, args.user_name_github);
             } else {
                 println!("{:?}", list_repository(&value));
