@@ -18,7 +18,7 @@ fn main() {
         Ok(value) => {
             if args.creation_pdf && args.name_repository.len() > 0 {
                 response_pdf(&args.name_repository, &value);
-            } else if args.name_repository.len() == 0 && args.creation_pdf {
+            } else if args.name_repository.is_empty() && args.creation_pdf {
                 response_vec_string(&client, args.user_name_github);
             } else {
                 println!("{:?}", list_repository(&value));

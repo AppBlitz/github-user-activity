@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
+// A being event represented here
 pub struct Events {
     pub id: String,
     #[serde(rename = "type")]

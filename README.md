@@ -1,4 +1,5 @@
 # GitHub User Activity
+This project aims to track a user’s activity on GitHub; it only retrieves the most recent repositories to which they have pushed. 
 
 ## Installation
 

@@ -1,5 +1,6 @@
 use crate::model::{format_output::FormatEvents, github_events::Events};
 
+/// count of amount of push  of repository one
 pub fn count_push(name_repository: &String, events: &Vec<Events>) -> i64 {
     let mut count_pus: i64 = 0;
     for elements in events {
@@ -9,12 +10,13 @@ pub fn count_push(name_repository: &String, events: &Vec<Events>) -> i64 {
     }
     count_pus
 }
+/// run all events and create one the struct of save data
 pub fn run_array(name_repository: &Vec<String>, events: &Vec<Events>) -> Vec<FormatEvents> {
     let mut events_format: Vec<FormatEvents> = Vec::new();
     for names in name_repository {
         let structure_repository = FormatEvents {
             amount_push: count_push(names, events),
-            name_repository: names.to_string(),
+            name_repository: names.clone(),
         };
         events_format.push(structure_repository);
     }
