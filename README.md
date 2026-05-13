@@ -95,5 +95,5 @@ cargo build --release
   If you are going to use the project with Docker, the commands remain the same. 
 
 ```bash
-docker container run -it <name-image> -u AppBlitz
+docker container run -it <name-image> -u <username_github>
 ```
