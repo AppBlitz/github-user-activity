@@ -14,6 +14,12 @@ git clone https://github.com/AppBlitz/github-user-activity.git
 cd github-user-activity
 ```
 
+### Build project with Docker
+
+```bash
+docker build -t <name_image> -f Docker/Dockerfile .
+```
+
 ### Build project with Cargo
 
 ```bash
@@ -25,7 +31,6 @@ cargo build --release
 ```bash
 ./target/release/github-user-activity -n <username_github>
 ```
-
 ---
 
 ## Usage
@@ -51,6 +56,7 @@ cargo build --release
 ```bash
 ./target/release/github-user-activity --name-repository  <name_perfil_github>/<name_repositoryy> --user-name-github <username_github>
 ```
+
 
 ##### creation pdf
 
@@ -82,4 +88,12 @@ cargo build --release
 2. **Option 2**
 ```bash
 ./target/release/github-user-activity -c -n <name_perfil_github>/<name_repository>  -u <username_github>
+```
+
+
+# Note
+  If you are going to use the project with Docker, the commands remain the same. 
+
+```bash
+docker container run -it <name-image> -u AppBlitz
 ```
